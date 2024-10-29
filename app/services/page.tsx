@@ -18,10 +18,8 @@ interface ServiceCardProps {
 const ServiceCard: React.FC<ServiceCardProps> = ({
   title,
   description,
-  subCards,
   cardNumber,
   containerCustomClassName,
-  textColor,
   borderColor,
   isActive,
   onClick,
