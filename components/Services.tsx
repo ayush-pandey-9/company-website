@@ -232,7 +232,7 @@ const Services: React.FC = () => {
     const tab = urlParams.get('tab')
     const subtab = urlParams.get('subtab')
 
-    if (!tab || !subtab) {
+    if (tab || subtab) {
       const defaultSubTab = servicesData[0].services[0]
         .toLowerCase()
         .replace(/\s+/g, '-')

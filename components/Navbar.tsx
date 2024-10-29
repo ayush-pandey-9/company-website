@@ -1,37 +1,38 @@
-"use client";
-import { usePathname } from "next/navigation";
-import React, { useEffect, useState } from "react";
-import Landing from "./Landing";
+'use client'
+import { usePathname } from 'next/navigation'
+import React, { useEffect, useState } from 'react'
+import Landing from './Landing'
 
 const Navbar = () => {
   const capitalizeFirstLetter = (string: string) => {
-    return string.charAt(0).toUpperCase() + string.slice(1);
-  };
-  const pathname = usePathname();
+    return string.charAt(0).toUpperCase() + string.slice(1)
+  }
+  const pathname = usePathname()
   const [activeLink, setActiveLink] = useState(
-    capitalizeFirstLetter(pathname.slice(1)) ?? ""
-  );
+    capitalizeFirstLetter(pathname.slice(1)) ?? ''
+  )
 
   const handleClick = (title: string) => {
-    setActiveLink(title);
-  };
+    setActiveLink(title)
+  }
   useEffect(() => {
+    console.log('pathname is : ', pathname)
     const currentPath =
-      pathname === "/" ? "Home" : capitalizeFirstLetter(pathname.slice(1));
-    setActiveLink(currentPath);
-  }, [pathname]);
+      pathname === '/' ? 'Home' : capitalizeFirstLetter(pathname.slice(1))
+    setActiveLink(currentPath)
+  }, [pathname])
   const navLinks = [
-    { title: "Home", href: "/" },
-    { title: "Services", href: "/services" },
-    { title: "Blog", href: "/blog" },
-    { title: "Team", href: "/team" },
-    { title: "Careers", href: "/careers" },
-  ];
+    { title: 'Home', href: '/' },
+    { title: 'Services', href: '/services' },
+    { title: 'Blog', href: '/blog' },
+    { title: 'Team', href: '/team' },
+    { title: 'Careers', href: '/careers' },
+  ]
 
   return (
     <div
       className={`${
-        pathname === "/" ? "h-screen" : "h-max"
+        pathname === '/' ? 'h-screen' : 'h-max'
       } flex flex-col justify-between`}
     >
       <nav className="bg-black flex items-center justify-between p-6 text-white">
@@ -47,8 +48,8 @@ const Navbar = () => {
                 onClick={() => handleClick(navLink.title)}
                 className={`hover:text-black hover:bg-white transition-colors px-30 py-14 rounded-md ${
                   activeLink === navLink.title
-                    ? "bg-white text-black"
-                    : "text-white hover:text-green-400"
+                    ? 'bg-white text-black'
+                    : 'text-white hover:text-green-400'
                 }`}
               >
                 {navLink.title}
@@ -65,9 +66,9 @@ const Navbar = () => {
           </div>
         </div>
       </nav>
-      {pathname === "/" ? <Landing /> : ""}
+      {pathname === '/' ? <Landing /> : ''}
     </div>
-  );
-};
+  )
+}
 
-export default Navbar;
+export default Navbar
