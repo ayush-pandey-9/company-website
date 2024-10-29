@@ -1,7 +1,7 @@
 'use client'
 
 import { usePathname, useSearchParams } from 'next/navigation'
-import { useEffect } from 'react'
+import { Suspense, useEffect } from 'react'
 
 interface ServiceCardProps {
   title: string
@@ -120,71 +120,73 @@ const Services: React.FC = () => {
       <h1 className="text-3xl font-bold mb-6">Our Services</h1>
 
       {/* Service Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-        {servicesData.map((service, index) => (
-          <ServiceCard
-            key={service?.id}
-            title={service?.title}
-            description={`Description for ${service?.title}`}
-            subCards={service?.services}
-            cardNumber={service?.id?.toString()}
-            containerCustomClassName={
-              index % 3 == 0
-                ? 'border-black hover:bg-black hover:text-white'
-                : index % 3 === 1
-                ? 'text-white bg-green hover:bg-white hover:text-green'
-                : 'border-black bg-black text-white  hover:bg-white hover:text-black'
-            }
-            // textColor={
-            //   index % 3 == 0
-            //     ? "hover:bg-black hover:text-white"
-            //     : index % 3 === 1
-            //     ? "hover:text-white"
-            //     : "border-black"
-            // }
-            borderColor={
-              index % 3 == 0
-                ? 'border-black'
-                : index % 3 === 1
-                ? 'border-green'
-                : 'border-white'
-            }
-          />
-        ))}
-      </div>
+      <Suspense fallback={<div>Loading services...</div>}>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+          {servicesData.map((service, index) => (
+            <ServiceCard
+              key={service?.id}
+              title={service?.title}
+              description={`Description for ${service?.title}`}
+              subCards={service?.services}
+              cardNumber={service?.id?.toString()}
+              containerCustomClassName={
+                index % 3 == 0
+                  ? 'border-black hover:bg-black hover:text-white'
+                  : index % 3 === 1
+                  ? 'text-white bg-green hover:bg-white hover:text-green'
+                  : 'border-black bg-black text-white  hover:bg-white hover:text-black'
+              }
+              // textColor={
+              //   index % 3 == 0
+              //     ? "hover:bg-black hover:text-white"
+              //     : index % 3 === 1
+              //     ? "hover:text-white"
+              //     : "border-black"
+              // }
+              borderColor={
+                index % 3 == 0
+                  ? 'border-black'
+                  : index % 3 === 1
+                  ? 'border-green'
+                  : 'border-white'
+              }
+            />
+          ))}
+        </div>
 
-      {/* Sub-Card Buttons */}
-      <div className="mt-6 flex gap-4 justify-start">
-        {activeService.services.map((subCard) => (
-          <button
-            key={subCard}
-            onClick={() => {
-              const subTab = subCard.toLowerCase().replace(/\s+/g, '-')
-              const newUrl = `${pathname}?tab=card${activeService.id}&subtab=${subTab}`
+        {/* Sub-Card Buttons */}
+        <div className="mt-6 flex gap-4 justify-start">
+          {activeService.services.map((subCard) => (
+            <button
+              key={subCard}
+              onClick={() => {
+                const subTab = subCard.toLowerCase().replace(/\s+/g, '-')
+                const newUrl = `${pathname}?tab=card${activeService.id}&subtab=${subTab}`
 
-              window.history.pushState({}, '', newUrl)
-            }}
-            className={`min-w-288 w-fit py-2 px-4 border font-medium border-black hover:border-none hover:bg-green hover:text-white ${
-              activeSubCard === subCard.toLowerCase().replace(/\s+/g, '-')
-                ? 'bg-green text-white border-none'
-                : ''
-            } rounded-lg transition-colors`}
-          >
-            {subCard}
-          </button>
-        ))}
-      </div>
+                window.history.pushState({}, '', newUrl)
+              }}
+              className={`min-w-288 w-fit py-2 px-4 border font-medium border-black hover:border-none hover:bg-green hover:text-white ${
+                activeSubCard === subCard.toLowerCase().replace(/\s+/g, '-')
+                  ? 'bg-green text-white border-none'
+                  : ''
+              } rounded-lg transition-colors`}
+            >
+              {subCard}
+            </button>
+          ))}
+        </div>
 
-      {/* Active Sub-Card Content */}
-      <div className="mt-4 p-4 ">
-        <p className="text-3xl font-semibold mb-6">
-          {activeSubCard
-            .split('-')
-            .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-            .join(' ')}
-        </p>
-        <p>Details about {activeSubCard}...</p>
-      </div>
+        {/* Active Sub-Card Content */}
+        <div className="mt-4 p-4 ">
+          <p className="text-3xl font-semibold mb-6">
+            {activeSubCard
+              .split('-')
+              .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+              .join(' ')}
+          </p>
+          <p>Details about {activeSubCard}...</p>
+        </div>
+      </Suspense>
     </div>
   )
 }
