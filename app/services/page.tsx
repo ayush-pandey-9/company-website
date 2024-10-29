@@ -26,10 +26,8 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
   const searchParams = useSearchParams()
 
   const handleCardClick = () => {
-    console.log('subcards : ', subCards)
     const defaultSubTab = subCards[0].toLowerCase().replace(/\s+/g, '-')
 
-    console.log('default sub tab : ', defaultSubTab)
     const newTab = `card${cardNumber}`
 
     const newUrl = `${pathname}?tab=${newTab}&subtab=${defaultSubTab}`
@@ -39,7 +37,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
     console.log('Updated URL to: ', newUrl)
   }
 
-  const activeSubTab = searchParams.get('subtab')
+  // const activeSubTab = searchParams.get('subtab')
 
   return (
     <div

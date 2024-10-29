@@ -82,38 +82,6 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
 
 // No need for props here, but if you plan on passing props to Services, define an interface
 const Services: React.FC = () => {
-  const servicesData = [
-    {
-      id: 1,
-      title: 'AUTONOMOUS AGENT DEVELOPMENT',
-      services: [
-        'Workflow Automation',
-        'Natural Language to SQL',
-        'Complex Data Pipelines',
-        'Self-Adaptive Systems',
-      ],
-    },
-    {
-      id: 2,
-      title: 'ENTERPRISE CONSULTING',
-      services: [
-        'Strategy Development',
-        'Performance Evaluation',
-        'Use Case Identification',
-        'Feasibility Assessments',
-      ],
-    },
-    {
-      id: 3,
-      title: 'CHATBOT DEVELOPMENT',
-      services: [
-        'GPT Development',
-        'Secure Solutions',
-        'Knowledge Response',
-        'Model Tuning',
-      ],
-    },
-  ]
   return (
     <div className="container mx-auto px-6 py-50">
       <h1 className="text-3xl font-bold mb-6">Our Services</h1>

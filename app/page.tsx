@@ -1,7 +1,5 @@
-import BlogComponent from "@/components/Blog";
-import Landing from "@/components/Landing";
-import Services from "@/components/Services";
-import Image from "next/image";
+import BlogComponent from '@/components/Blog'
+import Services from '@/components/Services'
 
 export default function Home() {
   return (
@@ -9,5 +7,5 @@ export default function Home() {
       <Services />
       <BlogComponent />
     </div>
-  );
+  )
 }

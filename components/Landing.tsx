@@ -1,16 +1,12 @@
-import Image from "next/image";
-import React from "react";
+import React from 'react'
 
 const Landing = () => {
   return (
     <section className="flex justify-center bg-cover bg-center bg-no-repeat px-5 py-70">
-      {/* <div>
-        <Image src="" alt="" />
-      </div> */}
       <div className="grid grid-cols-custom py-5">
         <div className="container mx-auto text-left">
           <h1 className="text-50 font-bold mb-6 leading-50">
-            <span className="text-green">BREATHE LIFE INTO YOUR SYSTEMS</span>{" "}
+            <span className="text-green">BREATHE LIFE INTO YOUR SYSTEMS</span>{' '}
             WITH CUTTING-EDGE AI SOLUTIONS
           </h1>
         </div>
@@ -30,7 +26,7 @@ const Landing = () => {
         </div>
       </div>
     </section>
-  );
-};
+  )
+}
 
-export default Landing;
+export default Landing

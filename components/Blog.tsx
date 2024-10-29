@@ -1,48 +1,45 @@
-"use client";
-import React from "react";
-import Image from "next/image";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
-import { usePathname } from "next/navigation";
+'use client'
+import React from 'react'
+import Image from 'next/image'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faArrowRight } from '@fortawesome/free-solid-svg-icons'
 
 interface BlogPost {
-  title: string;
-  date: string;
-  image: string; // Image path from the public folder for now
-  slug: string; // For generating URLs dynamically
+  title: string
+  date: string
+  image: string // Image path from the public folder for now
+  slug: string // For generating URLs dynamically
 }
 
 const blogPosts: BlogPost[] = [
   {
-    title: "Introducing Agentive By Morningside AI",
-    date: "6th December, 2023",
-    image: "/images/agentive-ai.png",
-    slug: "introducing-agentive-by-morningside-ai",
+    title: 'Introducing Agentive By Morningside AI',
+    date: '6th December, 2023',
+    image: '/images/agentive-ai.png',
+    slug: 'introducing-agentive-by-morningside-ai',
   },
   {
     title: "What OpenAI's Devday Announcements Mean For Your Business.",
-    date: "13th November, 2023",
-    image: "/images/openai-devday.png",
-    slug: "openai-devday-announcements-mean-for-business",
+    date: '13th November, 2023',
+    image: '/images/openai-devday.png',
+    slug: 'openai-devday-announcements-mean-for-business',
   },
   {
-    title: "Our State-of-the-Art Natural Language to SQL Innovation",
-    date: "4th January, 2023",
-    image: "/images/nl-to-sql.png",
-    slug: "state-of-the-art-natural-language-to-sql-innovation",
+    title: 'Our State-of-the-Art Natural Language to SQL Innovation',
+    date: '4th January, 2023',
+    image: '/images/nl-to-sql.png',
+    slug: 'state-of-the-art-natural-language-to-sql-innovation',
   },
-];
+]
 
 const BlogComponent: React.FC = () => {
-  const pathname = usePathname();
-
   const handlePostClick = (slug: string) => {
     // Manually update the browser history without reloading the page
-    window.history.pushState({}, "", `/blog/${slug}`);
+    window.history.pushState({}, '', `/blog/${slug}`)
 
     // Optionally, you could also scroll to the top or load some content dynamically here
-    console.log(`Navigated to /blog/${slug}`);
-  };
+    console.log(`Navigated to /blog/${slug}`)
+  }
 
   return (
     <div className="mx-auto py-50 px-6">
@@ -79,7 +76,7 @@ const BlogComponent: React.FC = () => {
         </button>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default BlogComponent;
+export default BlogComponent
