@@ -23,7 +23,6 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
   borderColor,
 }) => {
   const pathname = usePathname()
-  const searchParams = useSearchParams()
 
   const handleCardClick = () => {
     const defaultSubTab = subCards[0].toLowerCase().replace(/\s+/g, '-')
