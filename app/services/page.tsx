@@ -1,7 +1,6 @@
 'use client'
 
-import { usePathname, useSearchParams } from 'next/navigation'
-import { Suspense, useEffect } from 'react'
+import { useEffect } from 'react'
 
 interface ServiceCardProps {
   title: string
@@ -22,44 +21,44 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
   textColor,
   borderColor,
 }) => {
-  const pathname = usePathname()
-
-  const handleCardClick = () => {
-    const defaultSubTab = subCards[0].toLowerCase().replace(/\s+/g, '-')
-
+  const handleSubCardClick = (subCardTitle: string) => {
+    const newSubTab = subCardTitle.toLowerCase().replace(/\s+/g, '-')
     const newTab = `card${cardNumber}`
+    const newUrl = `/services?tab=${newTab}&subtab=${newSubTab}`
 
-    const newUrl = `${pathname}?tab=${newTab}&subtab=${defaultSubTab}`
-
-    window.history.pushState({}, '', newUrl)
-
-    console.log('Updated URL to: ', newUrl)
+    // Trigger full page reload by setting window.location.href
+    window.location.href = newUrl
   }
-
-  // const activeSubTab = searchParams.get('subtab')
 
   return (
     <div
-      onClick={handleCardClick}
-      className={`${containerCustomClassName} ${borderColor} hover:shadow-lg hover:border-2 hover:border-green transition-all transform hover:-translate-y-2 rounded-lg border border-black px-6 py-4 duration-500 cursor-pointer`}
+      className={`${containerCustomClassName} ${borderColor} hover:shadow-lg hover:border-2 hover:border-green transition-all transform hover:-translate-y-2 rounded-lg border px-6 py-4 duration-500`}
     >
-      <div className={textColor}>
-        <div className="flex justify-end">
-          <span
-            className={`px-4 border font-medium ${borderColor} w-min rounded-30`}
-          >{`#${cardNumber}`}</span>
-        </div>
-        <p className="text-2xl mt-6 font-semibold">{title}</p>
+      <div className="flex justify-end">
+        <span
+          className={`px-4 border font-medium ${borderColor} w-min rounded-30`}
+        >{`#${cardNumber}`}</span>
       </div>
-      <p className={`${textColor} mt-2`}>{description}</p>
+      <p className="text-2xl mt-6 font-semibold">{title}</p>
+      <p className="mt-2">{description}</p>
+
+      {/* Sub-cards */}
+      <div className="mt-4 flex flex-col gap-2">
+        {subCards.map((subCard) => (
+          <button
+            key={subCard}
+            onClick={() => handleSubCardClick(subCard)}
+            className={`${textColor} min-w-288 w-fit py-2 px-4 border rounded-lg transition-colors`}
+          >
+            {subCard}
+          </button>
+        ))}
+      </div>
     </div>
   )
 }
 
 const Services: React.FC = () => {
-  const pathname = usePathname()
-  const searchParams = useSearchParams()
-
   const servicesData = [
     {
       id: 1,
@@ -93,100 +92,55 @@ const Services: React.FC = () => {
     },
   ]
 
-  const activeTab = searchParams.get('tab')
-  const activeSubTab = searchParams.get('subtab')
-
-  const activeService =
-    servicesData.find((service) => `card${service.id}` === activeTab) ||
-    servicesData[0]
-
-  const activeSubCard =
-    activeSubTab || activeService.services[0].toLowerCase().replace(/\s+/g, '-')
-
   useEffect(() => {
-    if (!activeTab || !activeSubTab) {
-      const defaultSubTab = activeService.services[0]
+    // Handle the default loading of first card and first sub-card
+    const urlParams = new URLSearchParams(window.location.search)
+    const tab = urlParams.get('tab')
+    const subtab = urlParams.get('subtab')
+
+    if (!tab || !subtab) {
+      const defaultSubTab = servicesData[0].services[0]
         .toLowerCase()
         .replace(/\s+/g, '-')
-      const newTab = `card${activeService.id}`
-      const newUrl = `${pathname}?tab=${newTab}&subtab=${defaultSubTab}`
+      const newTab = `card${servicesData[0].id}`
+      const newUrl = `/services?tab=${newTab}&subtab=${defaultSubTab}`
 
-      window.history.replaceState({}, '', newUrl)
+      // Trigger full page reload with default values
+      window.location.href = newUrl
     }
-  }, [activeTab, activeSubTab, activeService, pathname])
+  }, [])
 
   return (
-    <div className="container mx-auto py-50 px-6">
+    <div className="container mx-auto py-8">
       <h1 className="text-3xl font-bold mb-6">Our Services</h1>
 
       {/* Service Cards */}
-      <Suspense fallback={<div>Loading services...</div>}>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-          {servicesData.map((service, index) => (
-            <ServiceCard
-              key={service?.id}
-              title={service?.title}
-              description={`Description for ${service?.title}`}
-              subCards={service?.services}
-              cardNumber={service?.id?.toString()}
-              containerCustomClassName={
-                index % 3 == 0
-                  ? 'border-black hover:bg-black hover:text-white'
-                  : index % 3 === 1
-                  ? 'text-white bg-green hover:bg-white hover:text-green'
-                  : 'border-black bg-black text-white  hover:bg-white hover:text-black'
-              }
-              // textColor={
-              //   index % 3 == 0
-              //     ? "hover:bg-black hover:text-white"
-              //     : index % 3 === 1
-              //     ? "hover:text-white"
-              //     : "border-black"
-              // }
-              borderColor={
-                index % 3 == 0
-                  ? 'border-black'
-                  : index % 3 === 1
-                  ? 'border-green'
-                  : 'border-white'
-              }
-            />
-          ))}
-        </div>
-
-        {/* Sub-Card Buttons */}
-        <div className="mt-6 flex gap-4 justify-start">
-          {activeService.services.map((subCard) => (
-            <button
-              key={subCard}
-              onClick={() => {
-                const subTab = subCard.toLowerCase().replace(/\s+/g, '-')
-                const newUrl = `${pathname}?tab=card${activeService.id}&subtab=${subTab}`
-
-                window.history.pushState({}, '', newUrl)
-              }}
-              className={`min-w-288 w-fit py-2 px-4 border font-medium border-black hover:border-none hover:bg-green hover:text-white ${
-                activeSubCard === subCard.toLowerCase().replace(/\s+/g, '-')
-                  ? 'bg-green text-white border-none'
-                  : ''
-              } rounded-lg transition-colors`}
-            >
-              {subCard}
-            </button>
-          ))}
-        </div>
-
-        {/* Active Sub-Card Content */}
-        <div className="mt-4 p-4 ">
-          <p className="text-3xl font-semibold mb-6">
-            {activeSubCard
-              .split('-')
-              .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-              .join(' ')}
-          </p>
-          <p>Details about {activeSubCard}...</p>
-        </div>
-      </Suspense>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+        {servicesData.map((service, index) => (
+          <ServiceCard
+            key={service?.id}
+            title={service?.title}
+            description={`Description for ${service?.title}`}
+            subCards={service?.services}
+            cardNumber={service?.id?.toString()}
+            containerCustomClassName={
+              index % 3 == 0
+                ? 'border-black hover:bg-black hover:text-white'
+                : index % 3 === 1
+                ? 'text-white bg-green hover:bg-white hover:text-green'
+                : 'border-black bg-black text-white  hover:bg-white hover:text-black'
+            }
+            borderColor={
+              index % 3 == 0
+                ? 'border-black'
+                : index % 3 === 1
+                ? 'border-green'
+                : 'border-white'
+            }
+            textColor="border-black hover:text-white"
+          />
+        ))}
+      </div>
     </div>
   )
 }
