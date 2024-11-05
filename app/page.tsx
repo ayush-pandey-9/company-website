@@ -82,7 +82,7 @@ export default function Home() {
   return (
     <div className="">
       <Services title={'Our Services'} servicesData={servicesData} />
-      {/* <WhyUs /> */}
+      <WhyUs />
       <Services title={'Our Approach'} servicesData={approachData} />
       <Services
         title={'About Us'}
