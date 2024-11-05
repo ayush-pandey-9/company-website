@@ -7,8 +7,8 @@ import { faArrowRight } from '@fortawesome/free-solid-svg-icons'
 interface BlogPost {
   title: string
   date: string
-  image: string // Image path from the public folder for now
-  slug: string // For generating URLs dynamically
+  image: string
+  slug: string
 }
 
 const blogPosts: BlogPost[] = [

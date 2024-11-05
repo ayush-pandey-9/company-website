@@ -32,6 +32,7 @@ const config: Config = {
       },
       fontSize: {
         '14': '0.875rem',
+        '28': '1.75rem',
         '30': '1.875rem',
         '35': '2.1875rem',
         '50': '3.125rem',

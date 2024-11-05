@@ -2,6 +2,11 @@
 import { usePathname } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 import Landing from './Landing'
+import Image from 'next/image'
+import logo from '../assets/logo.png'
+import styles from './styles/Navbar.module.css'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faBars, faTimes } from '@fortawesome/free-solid-svg-icons'
 
 const Navbar = () => {
   const capitalizeFirstLetter = (string: string) => {
@@ -11,20 +16,23 @@ const Navbar = () => {
   const [activeLink, setActiveLink] = useState(
     capitalizeFirstLetter(pathname.slice(1)) ?? ''
   )
+  const [isModalOpen, setIsModalOpen] = useState(false)
 
   const handleClick = (title: string) => {
     setActiveLink(title)
+    setIsModalOpen(false) // Close modal on link click
   }
+
   useEffect(() => {
-    console.log('pathname is : ', pathname)
     const currentPath =
       pathname === '/' ? 'Home' : capitalizeFirstLetter(pathname.slice(1))
     setActiveLink(currentPath)
   }, [pathname])
+
   const navLinks = [
     { title: 'Home', href: '/' },
     { title: 'Services', href: '/services' },
-    { title: 'Blog', href: '/blog' },
+    { title: 'About', href: '/about' },
     { title: 'Team', href: '/team' },
     { title: 'Careers', href: '/careers' },
   ]
@@ -35,18 +43,20 @@ const Navbar = () => {
         pathname === '/' ? 'h-screen' : 'h-max'
       } flex flex-col justify-between`}
     >
-      <nav className="bg-black flex items-center justify-between p-6 text-white">
-        <div className="flex items-center">
-          <img src="/logo.png" alt="Logo" className="h-8" />
-        </div>
-        <div className="flex gap-30">
-          <div className="md:flex space-x-6 rounded-lg border border-white p-px">
+      <div className={styles.imageContainer}></div>
+      <nav className="flex items-center justify-between p-4 lg:p-6 text-white z-10 w-full">
+        <a className="flex items-center" href="/">
+          <Image src={logo} alt="logo" width={50} height={50} />
+        </a>
+
+        <div className="hidden lg:flex gap-8 items-center">
+          <div className="space-x-6 rounded-lg border border-white py-2 px-1">
             {navLinks.map((navLink) => (
               <a
                 key={navLink.title}
                 href={navLink.href}
                 onClick={() => handleClick(navLink.title)}
-                className={`hover:text-black hover:bg-white transition-colors px-30 py-14 rounded-md ${
+                className={`hover:text-black hover:bg-white transition-colors px-6 py-2 rounded-md ${
                   activeLink === navLink.title
                     ? 'bg-white text-black'
                     : 'text-white hover:text-green-400'
@@ -56,16 +66,51 @@ const Navbar = () => {
               </a>
             ))}
           </div>
-          <div className="flex">
+          <a
+            href="/contact"
+            className="border border-white px-6 py-2 rounded-lg bg-white text-black font-semibold hover:bg-black hover:text-white transition-colors"
+          >
+            Contact us
+          </a>
+        </div>
+
+        <div className="lg:hidden">
+          <button onClick={() => setIsModalOpen(true)}>
+            <FontAwesomeIcon icon={faBars} size="lg" className="text-white" />
+          </button>
+        </div>
+      </nav>
+
+      {isModalOpen && (
+        <div className="fixed inset-0 bg-black bg-opacity-90 flex flex-col justify-center items-center z-20">
+          <button
+            onClick={() => setIsModalOpen(false)}
+            className="absolute top-4 right-4 text-white"
+          >
+            <FontAwesomeIcon icon={faTimes} size="2x" />
+          </button>
+          <div className="flex flex-col space-y-8">
+            {navLinks.map((navLink) => (
+              <a
+                key={navLink.title}
+                href={navLink.href}
+                onClick={() => handleClick(navLink.title)}
+                className="text-white text-2xl hover:text-green-400"
+              >
+                {navLink.title}
+              </a>
+            ))}
             <a
               href="/contact"
-              className="border border-white px-70 py-14 rounded-lg bg-white text-black font-semibold hover:bg-black hover:text-white transition-colors"
+              className="border border-white px-6 py-2 rounded-lg bg-white text-black font-semibold hover:bg-black hover:text-white transition-colors"
+              onClick={() => setIsModalOpen(false)}
             >
               Contact us
             </a>
           </div>
         </div>
-      </nav>
+      )}
+
       {pathname === '/' ? <Landing /> : ''}
     </div>
   )
