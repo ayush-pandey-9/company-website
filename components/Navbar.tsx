@@ -3,10 +3,10 @@ import { usePathname } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 import Landing from './Landing'
 import Image from 'next/image'
-import logo from '../assets/logo.png'
-import styles from './styles/Navbar.module.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars, faTimes } from '@fortawesome/free-solid-svg-icons'
+import landingImage from '../assets/background.png'
+import LogoImage from './LogoImage'
 
 const Navbar = () => {
   const capitalizeFirstLetter = (string: string) => {
@@ -40,13 +40,27 @@ const Navbar = () => {
   return (
     <div
       className={`${
-        pathname === '/' ? 'h-screen' : 'h-max'
+        pathname === '/' ? 'lg:h-screen h-max' : 'h-max'
       } flex flex-col justify-between`}
     >
-      <div className={styles.imageContainer}></div>
-      <nav className="flex items-center justify-between p-4 lg:p-6 text-white z-10 w-full">
+      <div
+        style={{
+          overflow: 'hidden',
+          height: 'auto',
+          width: '100%',
+          position: 'relative',
+          aspectRatio: '1.75',
+        }}
+      >
+        <Image
+          src={landingImage}
+          alt="Background Image-Emeris"
+          objectFit="cover"
+        />
+      </div>
+      <nav className="flex items-center justify-between p-4 lg:p-6 text-white z-10 w-full absolute">
         <a className="flex items-center" href="/">
-          <Image src={logo} alt="logo" width={50} height={50} />
+          <LogoImage />
         </a>
 
         <div className="hidden lg:flex gap-8 items-center">

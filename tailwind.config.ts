@@ -11,7 +11,8 @@ const config: Config = {
       colors: {
         background: 'var(--background)',
         foreground: 'var(--foreground)',
-        green: '#189d6d',
+        primary: '#C44411',
+        secondary: '#9A1D19',
       },
       spacing: {
         '14': '0.875rem',

@@ -26,7 +26,6 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
     const newTab = `card${cardNumber}`
     const newUrl = `/services?tab=${newTab}&subtab=${newSubTab}`
 
-    // Trigger full page reload by setting window.location.href
     window.location.href = newUrl
   }
 
@@ -36,7 +35,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
     >
       <div className="flex justify-end">
         <span
-          className={`px-4 border font-medium ${borderColor} w-min rounded-30`}
+          className={`px-4 border font-medium w-min rounded-30`}
         >{`#${cardNumber}`}</span>
       </div>
       <p className="text-2xl mt-6 font-semibold">{title}</p>
@@ -94,7 +93,7 @@ const Services: React.FC<ServiceProps> = ({
   }, [])
 
   return (
-    <div className="container mx-auto py-8 px-5 text-white">
+    <div className="container mx-auto py-8 px-5 text-black">
       {title && <h1 className="text-3xl font-bold mb-6">{title}</h1>}
       {description && <p className="text-xl mb-6">{description}</p>}
 
@@ -108,10 +107,10 @@ const Services: React.FC<ServiceProps> = ({
               subCards={service?.services || []}
               cardNumber={service?.id?.toString() || '0'}
               containerCustomClassName={
-                'border-black bg-black text-white hover:bg-white hover:text-black'
+                'border-primary bg-white text-primary hover:bg-primary hover:text-white hover:border-white'
               }
-              borderColor={'border-white hover:border-black'}
-              textColor="border-black hover:text-white"
+              borderColor={'border-primary hover:border-white'}
+              textColor="hover:text-white"
             />
           ))}
       </div>

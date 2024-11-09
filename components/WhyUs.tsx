@@ -2,7 +2,7 @@ import React from 'react'
 
 export default function WhyUs() {
   return (
-    <div className="px-5 py-8 text-white">
+    <div className="px-5 py-8 text-primary">
       <p className="text-3xl font-bold mb-6">Why Choose Us</p>
       <p className="text-2xl">
         At <span className="uppercase font-bold">Emeris</span>, we're not just
