@@ -1,0 +1,14 @@
+.aboutUsContainer {
+  top: 6rem;
+  left: 50%;
+  position: absolute;
+  transform: translateX(-50%);
+}
+
+@media (max-width: 1024px) {
+  .aboutUsContainer {
+    position: unset;
+    transform: none;
+    color: #000;
+  }
+}

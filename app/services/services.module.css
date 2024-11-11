@@ -1,0 +1,13 @@
+.servicesContainer {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 6rem;
+}
+@media (max-width: 1024px) {
+  .servicesContainer {
+    position: unset;
+    transform: none;
+    color: #000;
+  }
+}

@@ -66,15 +66,16 @@ interface ServiceProps {
   title?: string;
   description?: string;
   servicesData?: ServiceData[];
+  servicesCardClass?: string;
 }
 
 const Services: React.FC<ServiceProps> = ({
   title,
   description,
   servicesData,
+  servicesCardClass,
 }) => {
   useEffect(() => {
-    // Handle the default loading of first card and first sub-card
     if (servicesData && servicesData?.length > 0) {
       const urlParams = new URLSearchParams(window.location.search);
       const tab = urlParams.get("tab");
@@ -109,6 +110,7 @@ const Services: React.FC<ServiceProps> = ({
               subCards={service?.services || []}
               cardNumber={service?.id?.toString() || "0"}
               containerCustomClassName={
+                servicesCardClass ??
                 "border-primary bg-white text-black hover:bg-primary hover:text-white hover:border-white"
               }
               borderColor={"border-black hover:border-white"}

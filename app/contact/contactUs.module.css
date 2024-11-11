@@ -1,0 +1,13 @@
+.contactUsContainer {
+  position: absolute;
+  top: 6rem;
+  left: 50%;
+  transform: translateX(-50%);
+}
+@media (max-width: 1024px) {
+  .contactUsContainer {
+    position: unset;
+    transform: none;
+    color: #000;
+  }
+}

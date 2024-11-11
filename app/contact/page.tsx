@@ -1,50 +1,53 @@
-'use client'
+"use client";
 
-import React, { useState } from 'react'
-import emailjs from 'emailjs-com'
+import React, { useState } from "react";
+import emailjs from "emailjs-com";
+import styles from "./contactUs.module.css";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
-    subject: '',
-    name: '',
-    email: '',
-    budget: '',
-    message: '',
-  })
+    subject: "",
+    name: "",
+    email: "",
+    budget: "",
+    message: "",
+  });
 
-  const [isSent, setIsSent] = useState(false)
+  const [isSent, setIsSent] = useState(false);
 
   const handleChange = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
     >
   ) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value })
-  }
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
+    e.preventDefault();
 
     emailjs
       .send(
-        'service_4wq5dd9', // Replace with your EmailJS service ID
-        'template_phkt3a7', // Replace with your EmailJS template ID
+        "service_4wq5dd9",
+        "template_phkt3a7",
         formData,
-        'FR94OPLJhovvnz1DX' // Replace with your EmailJS user ID
+        "FR94OPLJhovvnz1DX"
       )
       .then(
         (result) => {
-          console.log('Email successfully sent!', result.status, result.text)
-          setIsSent(true)
+          console.log("Email successfully sent!", result.status, result.text);
+          setIsSent(true);
         },
         (error) => {
-          console.error('Failed to send email:', error)
+          console.error("Failed to send email:", error);
         }
-      )
-  }
+      );
+  };
 
   return (
-    <div className="lg:flex text-white container mx-auto py-8 px-5">
+    <div
+      className={`${styles.contactUsContainer} lg:flex text-white container mx-auto py-8 px-5`}
+    >
       <div className="w-full lg:w-6/12 md:pr-10">
         <h2 className="text-4xl font-bold mb-4">
           Ready to Make a Real Change?
@@ -117,19 +120,19 @@ const Contact = () => {
           />
           <button
             type="submit"
-            className="bg-green text-white py-4 rounded md:col-span-2"
+            className="bg-primary hver:bg-secondary text-white py-4 rounded md:col-span-2"
           >
             Get in Touch
           </button>
         </form>
       )}
       {isSent && (
-        <p className="mt-4 text-white">
+        <p className="mt-4 text-primary">
           Thanks a lot reaching out! We'll get back to you shortly.
         </p>
       )}
     </div>
-  )
-}
+  );
+};
 
-export default Contact
+export default Contact;

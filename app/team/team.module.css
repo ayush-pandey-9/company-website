@@ -1,0 +1,14 @@
+.teamContainer {
+  position: absolute;
+  top: 6rem;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+@media (max-width: 1024px) {
+  .teamContainer {
+    position: unset;
+    transform: none;
+    color: black;
+  }
+}

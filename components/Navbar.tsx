@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faTimes } from "@fortawesome/free-solid-svg-icons";
 import landingImage from "../assets/background.png";
 import LogoImage from "./LogoImage";
-import styles from './styles/Navbar.module.css'
+import styles from "./styles/Navbar.module.css";
 
 const Navbar = () => {
   const capitalizeFirstLetter = (string: string) => {
@@ -21,7 +21,7 @@ const Navbar = () => {
 
   const handleClick = (title: string) => {
     setActiveLink(title);
-    setIsModalOpen(false); // Close modal on link click
+    setIsModalOpen(false);
   };
 
   useEffect(() => {
@@ -35,7 +35,6 @@ const Navbar = () => {
     { title: "Services", href: "/services" },
     { title: "About", href: "/about" },
     { title: "Team", href: "/team" },
-    { title: "Careers", href: "/careers" },
   ];
 
   return (
@@ -59,7 +58,9 @@ const Navbar = () => {
           objectFit="cover"
         />
       </div>
-      <nav className={`${styles.navbarContainer} mx-auto container flex items-center justify-between p-4 lg:p-6 text-white z-10 w-full absolute`}>
+      <nav
+        className={`${styles.navbarContainer} mx-auto container flex items-center justify-between p-4 lg:p-6 text-white z-10 w-full absolute`}
+      >
         <a className="flex items-center" href="/">
           <LogoImage />
         </a>
@@ -71,10 +72,10 @@ const Navbar = () => {
                 key={navLink.title}
                 href={navLink.href}
                 onClick={() => handleClick(navLink.title)}
-                className={`hover:text-black hover:bg-white transition-colors px-6 py-2 rounded-md ${
+                className={`hover:bg-primary transition-colors px-6 py-2 rounded-md ${
                   activeLink === navLink.title
-                    ? "bg-white text-black"
-                    : "text-white hover:text-green-400"
+                    ? "bg-primary text-white hover:bg-secondary"
+                    : "text-white "
                 }`}
               >
                 {navLink.title}
@@ -83,7 +84,7 @@ const Navbar = () => {
           </div>
           <a
             href="/contact"
-            className="border border-white px-6 py-2 rounded-lg bg-white text-black font-semibold hover:bg-black hover:text-white transition-colors"
+            className="border border-white px-6 py-2 rounded-lg bg-primary text-white font-semibold hover:bg-secondary"
           >
             Contact us
           </a>
