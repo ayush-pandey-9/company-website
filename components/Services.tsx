@@ -1,15 +1,15 @@
-'use client'
+"use client";
 
-import { useEffect } from 'react'
+import { useEffect } from "react";
 
 interface ServiceCardProps {
-  title: string
-  description: string
-  subCards: string[]
-  cardNumber: string
-  containerCustomClassName?: string
-  textColor?: string
-  borderColor?: string
+  title: string;
+  description: string;
+  subCards: string[];
+  cardNumber: string;
+  containerCustomClassName?: string;
+  textColor?: string;
+  borderColor?: string;
 }
 
 const ServiceCard: React.FC<ServiceCardProps> = ({
@@ -22,12 +22,12 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
   borderColor,
 }) => {
   const handleSubCardClick = (subCardTitle: string) => {
-    const newSubTab = subCardTitle.toLowerCase().replace(/\s+/g, '-')
-    const newTab = `card${cardNumber}`
-    const newUrl = `/services?tab=${newTab}&subtab=${newSubTab}`
+    const newSubTab = subCardTitle.toLowerCase().replace(/\s+/g, "-");
+    const newTab = `card${cardNumber}`;
+    const newUrl = `/services?tab=${newTab}&subtab=${newSubTab}`;
 
-    window.location.href = newUrl
-  }
+    window.location.href = newUrl;
+  };
 
   return (
     <div
@@ -52,20 +52,20 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
         ))}
       </div>
     </div>
-  )
-}
+  );
+};
 
 interface ServiceData {
-  id?: number
-  title?: string
-  description?: string
-  services?: string[]
+  id?: number;
+  title?: string;
+  description?: string;
+  services?: string[];
 }
 
 interface ServiceProps {
-  title?: string
-  description?: string
-  servicesData?: ServiceData[]
+  title?: string;
+  description?: string;
+  servicesData?: ServiceData[];
 }
 
 const Services: React.FC<ServiceProps> = ({
@@ -76,25 +76,27 @@ const Services: React.FC<ServiceProps> = ({
   useEffect(() => {
     // Handle the default loading of first card and first sub-card
     if (servicesData && servicesData?.length > 0) {
-      const urlParams = new URLSearchParams(window.location.search)
-      const tab = urlParams.get('tab')
-      const subtab = urlParams.get('subtab')
+      const urlParams = new URLSearchParams(window.location.search);
+      const tab = urlParams.get("tab");
+      const subtab = urlParams.get("subtab");
 
       if (tab || subtab) {
         const defaultSubTab = servicesData[0]?.services?.[0]
           ?.toLowerCase()
-          ?.replace(/\s+/g, '-')
-        const newTab = `card${servicesData[0].id}`
-        const newUrl = `/services?tab=${newTab}&subtab=${defaultSubTab}`
+          ?.replace(/\s+/g, "-");
+        const newTab = `card${servicesData[0].id}`;
+        const newUrl = `/services?tab=${newTab}&subtab=${defaultSubTab}`;
 
-        window.location.href = newUrl
+        window.location.href = newUrl;
       }
     }
-  }, [])
+  }, []);
 
   return (
     <div className="container mx-auto py-8 px-5 text-black">
-      {title && <h1 className="text-3xl font-bold mb-6">{title}</h1>}
+      {title && (
+        <h1 className="text-3xl font-bold mb-6 text-primary">{title}</h1>
+      )}
       {description && <p className="text-xl mb-6">{description}</p>}
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-3">
@@ -102,20 +104,20 @@ const Services: React.FC<ServiceProps> = ({
           servicesData.map((service, index) => (
             <ServiceCard
               key={service?.id}
-              title={service?.title || ''}
-              description={service?.description || ''}
+              title={service?.title || ""}
+              description={service?.description || ""}
               subCards={service?.services || []}
-              cardNumber={service?.id?.toString() || '0'}
+              cardNumber={service?.id?.toString() || "0"}
               containerCustomClassName={
-                'border-primary bg-white text-primary hover:bg-primary hover:text-white hover:border-white'
+                "border-primary bg-white text-black hover:bg-primary hover:text-white hover:border-white"
               }
-              borderColor={'border-primary hover:border-white'}
+              borderColor={"border-black hover:border-white"}
               textColor="hover:text-white"
             />
           ))}
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Services
+export default Services;

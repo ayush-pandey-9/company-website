@@ -1,10 +1,10 @@
-import React from 'react'
+import React from "react";
 
 export default function WhyUs() {
   return (
-    <div className="px-5 py-8 text-primary">
-      <p className="text-3xl font-bold mb-6">Why Choose Us</p>
-      <p className="text-2xl">
+    <div className="container mx-auto px-5 py-8">
+      <p className="text-3xl font-bold mb-6 text-primary">Why Choose Us</p>
+      <p className="text-16">
         At <span className="uppercase font-bold">Emeris</span>, we're not just
         another AI agency chasing the latest trends. Sure, we can build chatbots
         (they're kind of like the avocado toast of AI—everyone does them), but
@@ -14,5 +14,5 @@ export default function WhyUs() {
         500s, but we don't want to brag (or bore you).
       </p>
     </div>
-  )
+  );
 }

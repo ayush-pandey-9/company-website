@@ -1,55 +1,56 @@
-'use client'
-import { usePathname } from 'next/navigation'
-import React, { useEffect, useState } from 'react'
-import Landing from './Landing'
-import Image from 'next/image'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBars, faTimes } from '@fortawesome/free-solid-svg-icons'
-import landingImage from '../assets/background.png'
-import LogoImage from './LogoImage'
+"use client";
+import { usePathname } from "next/navigation";
+import React, { useEffect, useState } from "react";
+import Landing from "./Landing";
+import Image from "next/image";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBars, faTimes } from "@fortawesome/free-solid-svg-icons";
+import landingImage from "../assets/background.png";
+import LogoImage from "./LogoImage";
+import styles from './styles/Navbar.module.css'
 
 const Navbar = () => {
   const capitalizeFirstLetter = (string: string) => {
-    return string.charAt(0).toUpperCase() + string.slice(1)
-  }
-  const pathname = usePathname()
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  };
+  const pathname = usePathname();
   const [activeLink, setActiveLink] = useState(
-    capitalizeFirstLetter(pathname.slice(1)) ?? ''
-  )
-  const [isModalOpen, setIsModalOpen] = useState(false)
+    capitalizeFirstLetter(pathname.slice(1)) ?? ""
+  );
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleClick = (title: string) => {
-    setActiveLink(title)
-    setIsModalOpen(false) // Close modal on link click
-  }
+    setActiveLink(title);
+    setIsModalOpen(false); // Close modal on link click
+  };
 
   useEffect(() => {
     const currentPath =
-      pathname === '/' ? 'Home' : capitalizeFirstLetter(pathname.slice(1))
-    setActiveLink(currentPath)
-  }, [pathname])
+      pathname === "/" ? "Home" : capitalizeFirstLetter(pathname.slice(1));
+    setActiveLink(currentPath);
+  }, [pathname]);
 
   const navLinks = [
-    { title: 'Home', href: '/' },
-    { title: 'Services', href: '/services' },
-    { title: 'About', href: '/about' },
-    { title: 'Team', href: '/team' },
-    { title: 'Careers', href: '/careers' },
-  ]
+    { title: "Home", href: "/" },
+    { title: "Services", href: "/services" },
+    { title: "About", href: "/about" },
+    { title: "Team", href: "/team" },
+    { title: "Careers", href: "/careers" },
+  ];
 
   return (
     <div
       className={`${
-        pathname === '/' ? 'lg:h-screen h-max' : 'h-max'
+        pathname === "/" ? "lg:h-screen h-max" : "h-max"
       } flex flex-col justify-between`}
     >
       <div
         style={{
-          overflow: 'hidden',
-          height: 'auto',
-          width: '100%',
-          position: 'relative',
-          aspectRatio: '1.75',
+          overflow: "hidden",
+          height: "auto",
+          width: "100%",
+          position: "relative",
+          aspectRatio: "1.75",
         }}
       >
         <Image
@@ -58,7 +59,7 @@ const Navbar = () => {
           objectFit="cover"
         />
       </div>
-      <nav className="flex items-center justify-between p-4 lg:p-6 text-white z-10 w-full absolute">
+      <nav className={`${styles.navbarContainer} mx-auto container flex items-center justify-between p-4 lg:p-6 text-white z-10 w-full absolute`}>
         <a className="flex items-center" href="/">
           <LogoImage />
         </a>
@@ -72,8 +73,8 @@ const Navbar = () => {
                 onClick={() => handleClick(navLink.title)}
                 className={`hover:text-black hover:bg-white transition-colors px-6 py-2 rounded-md ${
                   activeLink === navLink.title
-                    ? 'bg-white text-black'
-                    : 'text-white hover:text-green-400'
+                    ? "bg-white text-black"
+                    : "text-white hover:text-green-400"
                 }`}
               >
                 {navLink.title}
@@ -125,9 +126,9 @@ const Navbar = () => {
         </div>
       )}
 
-      {pathname === '/' ? <Landing /> : ''}
+      {pathname === "/" ? <Landing /> : ""}
     </div>
-  )
-}
+  );
+};
 
-export default Navbar
+export default Navbar;
