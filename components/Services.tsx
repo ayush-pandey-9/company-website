@@ -97,7 +97,7 @@ const Services: React.FC<ServiceProps> = ({
       {title && (
         <h1 className="text-3xl font-bold mb-6 text-primary">{title}</h1>
       )}
-      {description && <p className="text-xl mb-6">{description}</p>}
+      {description && <p className="text-16 mb-6">{description}</p>}
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-3">
         {servicesData &&
